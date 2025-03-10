@@ -1,0 +1,19 @@
+// model Coupon {
+//   id        String  @id @default(auto()) @map("_id") @db.ObjectId
+//   code      String  @unique
+//   discount  Float   // Percentage discount
+//   maxUsage  Int
+//   expiry    DateTime
+//   createdAt DateTime @default(now())
+//     usage     CouponUsage[]
+//    // order     Order
+// }
+
+// model CouponUsage {
+//   id        String  @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String @db.ObjectId
+//   couponId  String @db.ObjectId
+//   usedAt    DateTime @default(now())
+//     user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     coupon    Coupon  @relation(fields: [couponId], references: [id], onDelete: Cascade)
+// }

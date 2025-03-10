@@ -1,0 +1,29 @@
+model Shipping {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId     String   @db.ObjectId @unique
+  order       Order    @relation(fields: [orderId], references: [id])
+  recipient   String
+  address     Address? // Embedded address@
+  method      ShippingMethod @default( EXPRESS)
+  status      ShippingStatus @default(PENDING)
+  trackingId  String?  // Tracking number
+  carrier     String?  // Courier service (e.g., DHL)
+  estimatedDelivery DateTime?
+  shippedAt   DateTime?
+  deliveredAt DateTime?
+
+  @@map("shippings")
+}
+
+enum ShippingStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  FAILED
+}
+
+enum ShippingMethod {
+  STANDARD
+  EXPRESS
+  SAME_DAY
+}

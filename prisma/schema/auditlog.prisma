@@ -1,0 +1,24 @@
+
+ //To track audit logs (who did what and when), you need to log every critical change in your database.
+model AuditLog {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String?   // Who made the change (null if system action)
+  action     AuditAction
+  entity     String    // Table affected (e.g., "Order", "Product")
+  entityId   String    // ID of affected record
+  oldValue   Json?     // Before change (null if created)
+  newValue   Json?     // After change (null if deleted)
+  ipAddress  String?   // User’s IP address
+  timestamp  DateTime  @default(now())  // When it happened
+
+  @@map("audit_logs")
+}
+
+// ENUM for different actions
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+}

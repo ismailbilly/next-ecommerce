@@ -1,0 +1,36 @@
+model Order {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String  @db.ObjectId
+  status     OrderStatus @default(PENDING)
+  totalPrice Float
+  couponId   String? @db.ObjectId
+  items      OrderItem[]
+  payment    Payment?
+  shipping   Shipping?
+  
+  createdAt  DateTime @default(now())
+  user       User @relation(fields: [userId], references: [id])
+  //coupon     Coupon? @relation(fields: [couponId], references: [id])
+
+    @@index([userId], name: "user_orders")
+    @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id]) 
+
+    @@map("order_items") 
+}

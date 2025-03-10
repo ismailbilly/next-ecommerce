@@ -1,0 +1,18 @@
+model Payment {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String @db.ObjectId @unique
+
+  amount    Float
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime @default(now())
+ order Order @relation(fields: [orderId], references: [id])
+
+ @@map("payments")
+
+}
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}

@@ -1,0 +1,27 @@
+model Product {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  price       Float
+  stock       Int
+  sku         String
+  slug        String
+  weight      Float
+  categoryId  String @db.ObjectId
+  category    Category @relation(fields: [categoryId], references: [id])
+  sellerId    String
+  reviews     Review[]
+  comments    Comment[]
+  wishlists   Wishlist[]
+  promotions  Promotion[]
+  images      Image[] // Array of image URLs  createdAt   DateTime @default(now())
+CartItem CartItem[]
+OrderItem OrderItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  //@@index([slug], name: "slug_index")
+
+  @@map("products")
+
+}

@@ -1,0 +1,11 @@
+model Promotion {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String @db.ObjectId
+  discount  Float // Percentage discount (e.g., 20 for 20% off)
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime @default(now())
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+    @@map("promotions")
+}

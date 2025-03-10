@@ -1,0 +1,11 @@
+model Image {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  alt          String
+  src          String
+  productId String  @db.ObjectId
+ product     Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  blurhash     String
+  isMain       Boolean    @default(false) @map("is_main")
+
+  @@map("images")
+}
