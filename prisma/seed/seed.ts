@@ -3,7 +3,7 @@ import { seedProducts } from './products.seed';
 import { seedImages } from './images.seed';
 const prisma = new PrismaClient()
 async function main() {
-    //await seedProducts(prisma)
+    await seedProducts(prisma)
     await seedImages(prisma)
 }
 main()

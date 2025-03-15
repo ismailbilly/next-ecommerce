@@ -8,7 +8,7 @@ model Product {
   slug        String
   weight      Float
   categoryId  String @db.ObjectId
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   sellerId    String
   reviews     Review[]
   comments    Comment[]

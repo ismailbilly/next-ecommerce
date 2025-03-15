@@ -46,6 +46,9 @@ const generateSlug = (name: string) => {
     .replace(/[^a-z0-9-]/g, "");
 };
 export async function seedProducts(prisma: PrismaClient) {
+
+  await prisma.product.deleteMany();
+    //await prisma.category.deleteMany();
   const getCategories = await prisma.category.findMany();
  
     if (getCategories.length === 0) {
